@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Student Details - {{ student.name }}{% endblock %}
+
+{% block content %}
+
+<!-- Back link -->
+<p>
+    <a href="{% url 'student_list' %}">← Back to Student List</a>
+</p>
+
+<hr>
+
+<h2>Student Profile</h2>
+
+<!-- Profile Section -->
+<div style="display: flex; gap: 30px; margin-top: 20px;">
+
+    <!-- Image -->
+    <div>
+        {% if student.profile_image %}
+            <img src="{{ student.profile_image.url }}"
+                 alt="{{ student.name }}"
+                 style="width:180px; height:180px; object-fit:cover; border-radius:50%; border:2px solid #ccc;">
+        {% else %}
+            <div>
+                {{ student.name|first|upper }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Details -->
+    <div>
+        <table cellpadding="8">
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>{{ student.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Email</strong></td>
+                <td>{{ student.email }}</td>
+            </tr>
+            <tr>
+                <td><strong>Age</strong></td>
+                <td>{{ student.age }}</td>
+            </tr>
+            <tr>
+                <td><strong>Registered Date</strong></td>
+                <td>{{ student.created_at|date:"F d, Y" }}</td>
+            </tr>
+            <tr>
+                <td><strong>Registered Time</strong></td>
+                <td>{{ student.created_at|date:"h:i A" }}</td>
+            </tr>
+            <tr>
+                <td><strong>Student ID</strong></td>
+                <td>#{{ student.id }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+<!-- Action Buttons -->
+<p>
+    <a href="{% url 'student_list' %}">View All</a> |
+</p>
+
+<!-- Extra Info -->
+<h3>Quick Info</h3>
+<ul>
+    <li><strong>Age:</strong> {{ student.age }} years</li>
+    <li><strong>Status:</strong> Active</li>
+    <li><strong>Member Since:</strong> {{ student.created_at|timesince }} ago</li>
+</ul>
+
+{% endblock %}
